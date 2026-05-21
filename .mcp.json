@@ -1,1 +1,204 @@
+{
+  "description": "ip-legal-cn MCP 连接器配置 —— 中国大陆知识产权数据源。所有连接器在不可用时自动降级为手动检索模式，skill 仍可正常工作。",
+  "mcpServers": {
+    "cnipa-patent": {
+      "description": "CNIPA 中国及多国专利审查信息查询系统",
+      "transport": "http",
+      "url": "https://mcp.cnipa.gov.cn/patent",
+      "availability": "public",
+      "subscription": "free",
+      "fallback": "提示用户手动访问 http://epub.sipo.gov.cn 进行检索，将检索结果粘贴至对话中继续分析。",
+      "tools": {
+        "search_patent": {
+          "description": "按关键词、IPC分类号、申请人、日期范围检索中国专利",
+          "parameters": ["keywords:string[]", "ipc_class:string", "applicant:string", "filing_date_range:string", "legal_status:string", "patent_type:string(发明/实用新型/外观设计)", "page:int", "page_size:int"],
+          "returns": "专利列表（申请号、名称、申请人、申请日、法律状态、IPC）"
+        },
+        "get_patent_detail": {
+          "description": "获取专利全文信息，包括权利要求书、说明书、附图",
+          "parameters": ["application_number:string"],
+          "returns": "专利全文 + 著录项目 + 法律状态历史 + 年费缴纳记录"
+        },
+        "get_family": {
+          "description": "获取同族专利信息（PCT国家阶段、外国同族）",
+          "parameters": ["application_number:string"],
+          "returns": "同族专利列表（国家/地区、申请号、法律状态）"
+        },
+        "get_legal_status": {
+          "description": "获取专利当前法律状态及历史变更",
+          "parameters": ["application_number:string"],
+          "returns": "当前状态 + 状态变更时间线 + 年费缴纳情况 + 无效/质押/转让记录"
+        }
+      },
+      "note": "CNIPA公开查询系统访问频率有限制，建议配合商业数据库使用。"
+    },
+
+    "cnipa-trademark": {
+      "description": "CNIPA 中国商标网查询系统",
+      "transport": "http",
+      "url": "https://mcp.sbj.cnipa.gov.cn/trademark",
+      "availability": "public",
+      "subscription": "free",
+      "fallback": "提示用户手动访问 http://wcjs.sbj.cnipa.gov.cn 进行检索，将检索结果粘贴至对话中继续分析。",
+      "tools": {
+        "search_trademark": {
+          "description": "按商标名称、申请人、注册号、类别检索中国商标",
+          "parameters": ["mark_name:string", "applicant:string", "registration_number:string", "class_id:int", "status:string"],
+          "returns": "商标列表（注册号、商标名称、申请人、类别、状态、注册日期）"
+        },
+        "get_trademark_detail": {
+          "description": "获取商标详情，含商品/服务项目、流程状态、续展/转让/许可记录",
+          "parameters": ["registration_number:string"],
+          "returns": "商标详情 + 流程图 + 公告信息"
+        },
+        "check_similar": {
+          "description": "对候选商标进行初步近似查询",
+          "parameters": ["candidate_mark:string", "class_ids:int[]", "similarity_threshold:string(high/medium/low)"],
+          "returns": "近似商标列表 + 近似度评分 + 冲突分析"
+        }
+      }
+    },
+
+    "wenshu-court": {
+      "description": "中国裁判文书网 —— 知识产权裁判文书检索",
+      "transport": "http",
+      "url": "https://mcp.wenshu.court.gov.cn",
+      "availability": "public",
+      "subscription": "free",
+      "fallback": "提示用户手动访问 https://wenshu.court.gov.cn 检索，或使用知产宝/北大法宝商业数据库。",
+      "tools": {
+        "search_cases": {
+          "description": "检索知识产权裁判文书",
+          "parameters": ["query:string", "court_level:string(最高法院/高级法院/中级法院/知识产权法院)", "case_type:string(民事/行政/刑事)", "date_range:string", "case_number:string"],
+          "returns": "案例列表（案号、案件名称、法院、审判日期、案由、裁判要点摘要）"
+        },
+        "get_case": {
+          "description": "获取裁判文书全文",
+          "parameters": ["case_id:string"],
+          "returns": "裁判文书全文 + 当事人信息 + 裁判理由 + 判决结果"
+        },
+        "get_citation_network": {
+          "description": "获取案例的引用和被引网络（仅限指导案例/典型案例）",
+          "parameters": ["case_id:string"],
+          "returns": "引用的案例列表 + 被后续案例引用的列表"
+        }
+      },
+      "note": "裁判文书网API稳定性有限，建议配合知产宝(https://www.iphouse.cn)或北大法宝(https://www.pkulaw.com)使用。"
+    },
+
+    "pkulaw": {
+      "description": "北大法宝 —— 法律数据库（法律法规 + 司法案例 + 期刊论文）",
+      "transport": "http",
+      "url": "https://mcp.pkulaw.com/api",
+      "availability": "commercial",
+      "subscription": "paid",
+      "fallback": "提示用户手动登录北大法宝检索，将检索结果粘贴至对话中。",
+      "tools": {
+        "search_law": {
+          "description": "检索中国法律法规（法律、行政法规、司法解释、部门规章）",
+          "parameters": ["query:string", "law_type:string", "issuing_body:string", "effective_date_range:string"],
+          "returns": "法律法规列表（名称、发布机关、发布日期、效力级别、条文内容）"
+        },
+        "search_articles": {
+          "description": "检索法学期刊论文和评析",
+          "parameters": ["query:string", "journal:string", "author:string", "date_range:string"],
+          "returns": "论文列表（标题、作者、期刊、摘要）"
+        },
+        "get_legislation_history": {
+          "description": "获取法律法规的修订历史和版本比对",
+          "parameters": ["law_id:string"],
+          "returns": "修订时间线 + 新旧条文对照"
+        }
+      },
+      "note": "北大法宝为商业订阅服务，须企业购买许可证后配置 API Key。替代方案：威科先行(https://www.wkinfo.com.cn)、Alpha法律智能。"
+    },
+
+    "patent-analytics": {
+      "description": "商业专利检索与分析平台（incoPat / 智慧芽 / Patentics）",
+      "transport": "http",
+      "url": "https://mcp.patent-analytics.local",
+      "availability": "commercial",
+      "subscription": "paid",
+      "providers": {
+        "incoPat": "https://www.incopat.com",
+        "patentics": "https://www.patentics.com",
+        "zhihuiya": "https://www.zhihuiya.com"
+      },
+      "fallback": "提示用户手动登录 incoPat/智慧芽/Patentics 导出专利列表或检索报告，将文件路径或内容粘贴至对话中。",
+      "tools": {
+        "deep_search": {
+          "description": "执行深度专利检索（支持语义检索、引证树分析、权利要求检索）",
+          "parameters": ["query:string", "search_mode:string(keyword/semantic/citation/claim)", "filters:object", "max_results:int"],
+          "returns": "专利列表 + 相关性评分 + 专利摘要"
+        },
+        "export_search_report": {
+          "description": "导出检索结果为结构化报告（含法律状态、同族、引证）",
+          "parameters": ["search_id:string", "format:string(xlsx/csv/json)"],
+          "returns": "检索报告文件路径"
+        },
+        "get_landscape": {
+          "description": "获取技术领域专利布局全景分析",
+          "parameters": ["ipc_class:string", "time_range:string", "analysis_type:string(applicant_ranking/tech_trend/blank_spot)"],
+          "returns": "分析图表数据"
+        }
+      },
+      "note": "中科三清当前使用的检索服务商为 incoPat/智慧芽/Patentics（联系方式见 CLAUDE.md 第5节）。建议至少配置其中一家 API。"
+    },
+
+    "cnipa-invalidation": {
+      "description": "CNIPA 复审和无效审理部 —— 无效决定数据库",
+      "transport": "http",
+      "url": "https://mcp.reexam.cnipa.gov.cn",
+      "availability": "public",
+      "subscription": "free",
+      "fallback": "提示用户手动访问 CNIPA 复审无效决定检索系统，将决定书下载后粘贴至对话中。",
+      "tools": {
+        "search_decisions": {
+          "description": "检索专利无效宣告决定书",
+          "parameters": ["patent_number:string", "decision_number:string", "decision_type:string(全部维持/部分无效/全部无效)", "date_range:string"],
+          "returns": "决定书列表（决定号、专利号、决定类型、决定日期）"
+        },
+        "get_decision": {
+          "description": "获取无效决定书全文",
+          "parameters": ["decision_number:string"],
+          "returns": "决定书全文 + 合议组成员 + 决定理由 + 决定结论"
+        }
+      }
+    },
+
+    "notification": {
+      "description": "通知推送服务 —— 期限监控告警与审批提醒",
+      "transport": "webhook",
+      "url": "https://mcp.notification.local",
+      "availability": "self-hosted",
+      "subscription": "self-hosted",
+      "providers": {
+        "wecom": "企业微信 Webhook (https://work.weixin.qq.com/api/doc)",
+        "dingtalk": "钉钉机器人 Webhook (https://open.dingtalk.com/document/org/custom-robot)",
+        "feishu": "飞书自定义机器人 (https://open.feishu.cn/document/client-docs/bot-v3/add-custom-bot)",
+        "email": "SMTP 邮件服务"
+      },
+      "fallback": "生成文本报告存储至共享文件夹，由人工发送通知。",
+      "tools": {
+        "send_alert": {
+          "description": "发送期限告警通知（红灯/黄灯/蓝灯）",
+          "parameters": ["channel:string(wecom/dingtalk/feishu/email)", "level:string(red/yellow/blue)", "title:string", "body:string", "recipients:string[]"],
+          "returns": "发送状态"
+        },
+        "send_daily_report": {
+          "description": "发送每日期限监控报告",
+          "parameters": ["channel:string", "report_path:string", "recipients:string[]"],
+          "returns": "发送状态"
+        }
+      },
+      "note": "通知渠道的 Webhook URL 和联系人信息须在 CLAUDE.md 第5-6节配置。当前为框架配置，须填入实际 Webhook 地址后方可使用。"
+    }
+  },
+
+  "globalFallbackPolicy": {
+    "description": "全局降级策略 —— 当任何 MCP 连接器不可用时，skill 会自动降级为'手动输入模式'，引导用户通过外部渠道获取信息后粘贴至对话中。所有 skill 均设计为可独立运行，不强制依赖任何 MCP 连接器。",
+    "behavior": "skill 在调用 MCP 工具失败时，输出明确的检索建议（含数据库名称、URL、检索式），等待用户提供手动检索结果后继续分析。",
+    "guidance": "若有条件，建议优先配置以下 3 个免费公开数据源以显著提升效率：CNIPA 专利查询、CNIPA 商标查询、中国裁判文书网。"
+  }
+}
 
