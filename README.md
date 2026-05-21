@@ -28,17 +28,17 @@
 
 | 命令 | 技能 | 说明 |
 |:---|:---|:---|
-| `/ip-legal-cn:cold-start-interview` | 冷启动面试 | 首次使用必做：交互式问答生成企业实践画像 `CLAUDE.md` |
-| `/ip-legal-cn:invention-intake` | 交底书三性初评 | 新颖性、创造性、实用性初筛；区分发明/实用新型；识别主题适格性障碍；评估宽限期与保密审查义务 |
-| `/ip-legal-cn:fto-triage` | FTO 初筛 | 中国专利侵权风险初筛；全面覆盖/等同原则初评；现有技术抗辩/先用权线索；规避设计建议 |
-| `/ip-legal-cn:trademark-clearance` | 商标清查 | 在先权利冲突检索策略；绝对/相对驳回风险评估；恶意注册排查；跨类驰名商标保护风险 |
-| `/ip-legal-cn:infringement-triage` | 侵权初筛 | 商标/专利/著作权/商业秘密四权侵权初步判定；抗辩/反诉风险；行动建议（警告函/诉讼/无效/行政投诉） |
-| `/ip-legal-cn:ip-clause-review` | IP 合同条款审查 | 技术合同权属、许可、转让、保证、违约责任审查；职务发明/委托开发/合作开发；反垄断合规 |
-| `/ip-legal-cn:oss-review` | 开源合规检查 | 许可证分类与传染性评估；专利报复条款；中国司法判例（GPL 传染性）；木兰许可证 |
-| `/ip-legal-cn:portfolio` | 组合期限管理 | 专利年费、商标续展、软著、集成电路布图设计全生命周期监控；滞纳期/宽展期/恢复权利提醒 |
-| `/ip-legal-cn:claim-chart-builder` | 权利要求比对表 | 专利侵权技术特征比对表；无效宣告证据对照表；功能性特征分解 |
-| `/ip-legal-cn:cease-desist` | 律师函/警告函 | 侵权警告函（公司名义）/律师函（律所名义）；诉前调解意向；行为保全警告；反向风险提示 |
-| `/ip-legal-cn:takedown` | 网络侵权投诉 | 电商平台投诉书（阿里/京东/拼多多/微信/抖音）；ISP 通知函；恶意通知赔偿风险提示 |
+| `/claude-for-legal-china-IP:cold-start-interview` | 冷启动面试 | 首次使用必做：交互式问答生成企业实践画像 `CLAUDE.md` |
+| `/claude-for-legal-china-IP:invention-intake` | 交底书三性初评 | 新颖性、创造性、实用性初筛；区分发明/实用新型；识别主题适格性障碍；评估宽限期与保密审查义务 |
+| `/claude-for-legal-china-IP:fto-triage` | FTO 初筛 | 中国专利侵权风险初筛；全面覆盖/等同原则初评；现有技术抗辩/先用权线索；规避设计建议 |
+| `/claude-for-legal-china-IP:trademark-clearance` | 商标清查 | 在先权利冲突检索策略；绝对/相对驳回风险评估；恶意注册排查；跨类驰名商标保护风险 |
+| `/claude-for-legal-china-IP:infringement-triage` | 侵权初筛 | 商标/专利/著作权/商业秘密四权侵权初步判定；抗辩/反诉风险；行动建议（警告函/诉讼/无效/行政投诉） |
+| `/claude-for-legal-china-IP:ip-clause-review` | IP 合同条款审查 | 技术合同权属、许可、转让、保证、违约责任审查；职务发明/委托开发/合作开发；反垄断合规 |
+| `/claude-for-legal-china-IP:oss-review` | 开源合规检查 | 许可证分类与传染性评估；专利报复条款；中国司法判例（GPL 传染性）；木兰许可证 |
+| `/claude-for-legal-china-IP:portfolio` | 组合期限管理 | 专利年费、商标续展、软著、集成电路布图设计全生命周期监控；滞纳期/宽展期/恢复权利提醒 |
+| `/claude-for-legal-china-IP:claim-chart-builder` | 权利要求比对表 | 专利侵权技术特征比对表；无效宣告证据对照表；功能性特征分解 |
+| `/claude-for-legal-china-IP:cease-desist` | 律师函/警告函 | 侵权警告函（公司名义）/律师函（律所名义）；诉前调解意向；行为保全警告；反向风险提示 |
+| `/claude-for-legal-china-IP:takedown` | 网络侵权投诉 | 电商平台投诉书（阿里/京东/拼多多/微信/抖音）；ISP 通知函；恶意通知赔偿风险提示 |
 
 ## 包含智能体（Agents）
 
@@ -64,10 +64,10 @@
 
 ```bash
 # 添加插件市场
-/plugin marketplace add C:\Users\Administrator\claude-for-legal-cn
+/plugin marketplace add C:\Users\Administrator\claude-for-legal-china-IP
 
 # 安装插件
-/plugin install ip-legal-cn@claude-for-legal-cn
+/plugin install claude-for-legal-china-IP
 
 # 重启 Claude Code
 ```
@@ -77,7 +77,7 @@
 每个插件首次使用必须运行冷启动面试，建立企业实践画像：
 
 ```bash
-/ip-legal-cn:cold-start-interview
+/claude-for-legal-china-IP:cold-start-interview
 ```
 
 面试将询问：
@@ -87,22 +87,22 @@
 - 审批权限矩阵
 - 保密分级规则
 
-面试结果写入 `~/.claude/plugins/config/ip-legal-cn/CLAUDE.md`，所有技能执行前都会读取该文件。**跳过此步骤是输出质量差的最常见原因。**
+面试结果写入 `~/.claude/plugins/config/claude-for-legal-china-IP/CLAUDE.md`，所有技能执行前都会读取该文件。**跳过此步骤是输出质量差的最常见原因。**
 
 ### 4. 使用示例
 
 ```bash
 # 评估一份专利交底书
-/ip-legal-cn:invention-intake ./交底书-大气监测传感器融合方法.md
+/claude-for-legal-china-IP:invention-intake ./交底书-大气监测传感器融合方法.md
 
 # 对新产品进行 FTO 初筛
-/ip-legal-cn:fto-triage ./产品技术白皮书.md --tech-field G01N
+/claude-for-legal-china-IP:fto-triage ./产品技术白皮书.md --tech-field G01N
 
 # 审查技术合同中的 IP 条款
-/ip-legal-cn:ip-clause-review ./技术开发合同-草案.docx
+/claude-for-legal-china-IP:ip-clause-review ./技术开发合同-草案.docx
 
 # 检查开源合规
-/ip-legal-cn:oss-review ./SBOM.json
+/claude-for-legal-china-IP:oss-review ./SBOM.json
 ```
 
 ## 企业知识库（Playbook）
