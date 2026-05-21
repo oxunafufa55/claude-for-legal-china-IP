@@ -36,7 +36,7 @@ user-invocable: true
 >
 > **请先运行冷启动面试（约15-20分钟）：**
 > ```
-> /ip-legal-cn:cold-start-interview
+> /claude-for-legal-china-IP:cold-start-interview
 > ```
 >
 > 完成后重新执行本命令。若您是首次使用本插件，跳过此步骤是输出质量差的最常见原因。
@@ -129,7 +129,7 @@ user-invocable: true
 
 #### 2.2 专利侵权比对
 
-详见 `/ip-legal-cn:claim-chart-builder`（侵权比对模式）。
+详见 `/claude-for-legal-china-IP:claim-chart-builder`（侵权比对模式）。
 
 核心要点：
 - 全面覆盖原则 + 等同原则
