@@ -42,7 +42,7 @@ user-invocable: true
 >
 > **请先运行冷启动面试（约15-20分钟）：**
 > ```
-> /ip-legal-cn:cold-start-interview
+> /claude-for-legal-china-IP:cold-start-interview
 > ```
 >
 > 完成后重新执行本命令。若您是首次使用本插件，跳过此步骤是输出质量差的最常见原因。
@@ -59,7 +59,7 @@ user-invocable: true
    - 外部诉讼律所（律师函须由合作律所出具）
    - 保密规则（函件内容可能涉及商业秘密，须脱敏）
 
-2. 确认侵权初筛已完成（建议先运行 `/ip-legal-cn:infringement-triage`），确保：
+2. 确认侵权初筛已完成（建议先运行 `/claude-for-legal-china-IP:infringement-triage`），确保：
    - 权利基础稳定
    - 侵权事实有初步证据支持
    - 已评估反向风险
