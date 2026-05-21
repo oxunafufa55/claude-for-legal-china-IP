@@ -32,7 +32,7 @@ user-invocable: true
 >
 > **请先运行冷启动面试（约15-20分钟）：**
 > ```
-> /ip-legal-cn:cold-start-interview
+> /claude-for-legal-china-IP:cold-start-interview
 > ```
 >
 > 完成后重新执行本命令。若您是首次使用本插件，跳过此步骤是输出质量差的最常见原因。
@@ -43,7 +43,7 @@ user-invocable: true
 
 ## 执行前准备
 
-1. 读取 `CLAUDE.md` 中的中科三清实践档案，确认：
+1. 读取 `CLAUDE.md` 中的XXX公司实践档案，确认：
    - 企业技术领域（G01N、G06Q、G06F、H04L、G01S 等）
    - 职务发明权属规则
    - 审批权限（<50万 知识产权总经理审批；≥50万 总裁审批）
