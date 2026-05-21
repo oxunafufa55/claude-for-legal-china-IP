@@ -35,7 +35,7 @@ user-invocable: true
 >
 > **请先运行冷启动面试（约15-20分钟）：**
 > ```
-> /ip-legal-cn:cold-start-interview
+> /claude-for-legal-china-IP:cold-start-interview
 > ```
 >
 > 完成后重新执行本命令。若您是首次使用本插件，跳过此步骤是输出质量差的最常见原因。
